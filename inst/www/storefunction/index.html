@@ -1,0 +1,28 @@
+<html>
+	<head>
+		<title> Store Function Demo Page </title> 
+	</head>
+<body>
+
+<h3> Post a function </h3>
+
+<form enctype="multipart/form-data" action="/R/save/opencpu.tools/makefunction" method="POST"> 
+
+<textarea name="myfun" rows="30" cols="120">
+
+myfun <- function(foo="bar"){
+  
+  #put a valid R function here.
+  
+}	
+
+</textarea>	
+
+<br />
+<br />
+
+<input type="submit" value="Publish Function" />
+</form>
+
+</body>
+</html>
