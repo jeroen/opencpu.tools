@@ -1,10 +1,10 @@
 Package: opencpu.tools
 Maintainer: Jeroen Ooms <jeroen.ooms@stat.ucla.edu>
-License: BSD
+License: AGPL
 Title: Tools for the opencpu project.
 Type: Package
 Author: Jeroen Ooms
 Description: Some demo's, tools, sample files, etc for the opencpu project.
-Version: 0.1
+Version: 0.3
 Date: 2011-08-04
 

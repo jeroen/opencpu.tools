@@ -1,0 +1,54 @@
+<html>
+	<head>
+		<base target="_blank" />
+		
+	</head>
+	
+	<body>
+	
+		<h1> Analyses Test page </h1>
+		
+		<h3> Upload SPSS dataset </h3>
+		
+			Try with e.g. <a href="/R/call/base/system.file/file?package='opencpu.tools'&...='files/1991GS.sav'">1991 General Survey SPSS Dataset</a> <br />
+		
+			<form enctype="multipart/form-data" action="/R/call/foreign/read.spss/save" method="POST">
+			<fieldset>
+				<input type="hidden" name="to.data.frame" value="TRUE"> <!-- must always be set to true -->
+				File to upload: <input name="!file:file" type="file" /><br /> <!-- param name has to be file -->
+				<input type="submit" value="Upload SPSS File" />
+			</fieldset>
+			</form>		
+			
+		
+		<h3> Upload CSV dataset </h3>
+		
+			Try with e.g. <a href="/R/call/base/identity/csv?x=mtcars">mtcars.csv</a> <br />
+			<form enctype="multipart/form-data" action="/R/call/utils/read.csv/save" method="POST">
+			<fieldset>
+				File to upload: <input name="!file:file" type="file" /><br /> <!-- param name has to be file -->
+				Header: <select name="header"><option value=TRUE> TRUE </option> <option value=FALSE> FALSE </option> </select> </br />
+				Sep: <select name="sep"><option value="','"> ',' (comma) </option> <option value="';'"> ';' (semicolon) </option> </select> </br /> 
+				Dec: <select name="dec"><option value="'.'"> '.' (dot) </option> <option value="','"> ',' (comma) </option> </select> </br /> 
+				<input type="submit" value="Upload CSV file" />
+			</fieldset>
+			</form>		
+			
+					
+		
+		<h3> Upload TXT dataset </h3>
+		
+			Try with e.g. <a href="/R/call/base/identity/table?x=mtcars">mtcars.txt</a> <br />
+			<form enctype="multipart/form-data" action="/R/call/utils/read.table/save" method="POST">
+			<fieldset>
+				File to upload: <input name="!file:file" type="file" /><br /> <!-- param name has to be file -->
+				Header: <select name="header"><option value=TRUE> TRUE </option> <option value=FALSE> FALSE </option> </select> </br />
+				Sep: <input type="text" name="sep" size="25" value='""'> <br />
+				Dec: <input type="text" name="sep" size="25" value='"."'> <br />
+				<input type="submit" value="Upload TXT file" />
+			</fieldset>
+			</form>				
+	
+	</body>
+</html>
+
