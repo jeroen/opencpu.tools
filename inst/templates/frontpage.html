@@ -30,6 +30,7 @@ HTTP 200 if OK, HTTP 400 if R throws an error.
 <h3> Get R Objects </h3>
 <ul>
 <li><a href="/R/call/stats/rnorm/json?n=10&mean=10&sd=100"> json output</a><br /></li>
+<li><a href="/R/call/stats/rnorm/jsonp?n=10&mean=10&sd=100&!prefix='myfun'"> jsonp output</a><br /></li>
 <li><a href="/R/call/stats/as.data.frame/rds?x=iris"> binary R object</a><br /></li>
 <li><a href="/R/call/stats/as.data.frame/rda?x=iris"> binary R workspace</a><br /></li>
 <li><a href="/R/call/stats/as.data.frame/ascii?x=iris"> dput ascii representation</a><br /></li>
@@ -46,8 +47,10 @@ HTTP 200 if OK, HTTP 400 if R throws an error.
 <ul>
 <li><a href="/R/call/stats/rnorm/json?n=10&!seed=12345"> Set a seed</a><br /></li>
 <li><a href="/R/call/base/identity/json?x=rnorm(100)"> Run code </a><br /></li>
+<li><a href="/R/call/base/identity/json?x={total <- 0; for(i in 1:100) { total <- total + i^2 }; total;}"> More code </a><br /></li>
 <li><a href="/R/call/base/Sys.info/json"> No arguments (Sysinfo)</a><br /></li>
-<li><a href="/R/call/base/system.file/json?package='ggplot2'&...='DESCRIPTION'"> the ... elipse argument</a><br /></li>
+<li><a href="/R/call/base/system.file/json?package='ggplot2'&...='DESCRIPTION'"> The ... elipse argument</a><br /></li>
+<li><a href="/R/call/graphics/plot/png?x=1&xlab='Zürich'&ylab='Z\303\274rich'">Test UTF-8</a><br /></li>
 </ul>
 
 <h3> Test Security </h3>
@@ -166,6 +169,13 @@ Read it in: <input name="x" type="text" value="read.csv(mycsvfile)"/><br />
 <li><a href="/R/help/ggplot2/qplot"> qplot help </a><br /></li>
 <li><a href="/R/help/datasets/cars"> cars help </a><br /></li>
 </ul>
+
+<h2> CPU Profiling </h2>
+Note that the profiling intself introduces significant overhead, but this does not seem to be included in the output.
+<ul>
+<li><a href="/R/call/ggplot2/qplot/prof?x=speed&y=dist&data=cars"> profile ggplot...</a><br /></li>
+</ul>
+
 
 
 </body>

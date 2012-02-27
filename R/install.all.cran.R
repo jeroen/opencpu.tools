@@ -1,7 +1,18 @@
-install.all.cran <- function(repos="http://cran.cnr.berkeley.edu/", writecsv=TRUE){
+install.all.cran <- function(repos="http://cran.cnr.berkeley.edu/", libpath="", writecsv=TRUE, Ncpus){
+	
+	if(missing(Ncpus)){
+		Ncpus <- max(1, parallel::detectCores()-2);
+	}
 
+	#set ncpus
+	options("Ncpus" = Ncpus);
+	
+	#set libpath
+	.libPaths(libpath);
+	
 	#set mirror
 	options(repos=repos)
+	options(warn=1);
 	today <- as.Date(Sys.time());
 	
 	#packages that were installed from Ubuntu. 
@@ -9,7 +20,7 @@ install.all.cran <- function(repos="http://cran.cnr.berkeley.edu/", writecsv=TRU
 	ub.pkgs <- row.names(installed.packages(ub.libs)); 
 	
 	#packages that were installed from CRAN
-	cr.libs <- tail(.libPaths(),3)[1];
+	cr.libs <- head(.libPaths(),1);
 	cr.pkgs <- row.names(installed.packages(cr.libs));
 	
 	#available packages on the repository
@@ -18,7 +29,8 @@ install.all.cran <- function(repos="http://cran.cnr.berkeley.edu/", writecsv=TRU
 	old.pkgs <- row.names(old.matrix);
 	
 	#packages on cran that we don't have yet.
-	new.pkgs <- new.packages(c(ub.libs,cr.libs));
+	#new.pkgs <- new.packages(c(ub.libs,cr.libs));
+	new.pkgs <- new.packages(cr.libs);
 	new.matrix <- available.packages()[new.pkgs,];
 	
 	#update cran packages
@@ -29,12 +41,13 @@ install.all.cran <- function(repos="http://cran.cnr.berkeley.edu/", writecsv=TRU
 	
 	#Checking updated packages
 	new.old.pkgs <- row.names(old.packages(cr.libs));
-	update.success <- old.pkgs[!(old.pkgs %in% new.old.pkgs)]
+	update.success <- !(old.pkgs %in% new.old.pkgs)
 	old.matrix <- cbind(old.matrix, success=update.success);
 	
 	#Checking installed packages:
-	new.new.pkgs <- new.packages(c(ub.libs,cr.libs));
-	install.success <- new.pkgs[!(new.pkgs %in% new.new.pkgs)]
+	# new.new.pkgs <- new.packages(c(ub.libs,cr.libs));
+	new.new.pkgs <- new.packages(cr.libs);
+	install.success <- !(new.pkgs %in% new.new.pkgs)
 	new.matrix <- cbind(new.matrix, success=install.success);
 	
 	#dump csv
